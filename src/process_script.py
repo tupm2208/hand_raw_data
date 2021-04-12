@@ -3,8 +3,8 @@ import json
 import re
 
 
-def format_time(number):
-    millis = number * 1000
+def format_time(number, added=0):
+    millis = number * 1000 + added
     millis = int(millis)
     seconds=(millis/1000)%60
     seconds = int(seconds)
@@ -26,8 +26,8 @@ def format_rst(json_file):
     for word in words:
         if word['case'] != "success":
             continue
-        s = format_time(word['start'])
-        e = format_time(word['end'])
+        s = format_time(word['start'], -100)
+        e = format_time(word['end'], 100)
         f.write(f'{i}\n')
         f.write(f"{s} --> {e}\n")
         f.write(f"{word['word']}\n\n")
@@ -57,4 +57,4 @@ def get_text(file_path):
 
 if __name__ == '__main__':
     # get_text('Phát âm chuẩn - Anh ngữ đặc biệt - Saving Money (VOA)-Dfo-7GOtEY8.en.vtt')
-    format_rst('align.json')
+    format_rst('datasets/Phát âm chuẩn - Anh ngữ đặc biệt - Saving Money (VOA)-Dfo-7GOtEY8.json')
