@@ -16,6 +16,7 @@ def format_time(number, added=0):
 
 
 def format_rst(json_file):
+    add_time = 100
     out_file = json_file.replace(".json", '_f.srt')
 
     with open(json_file, 'r') as f:
@@ -26,16 +27,12 @@ def format_rst(json_file):
     for word in words:
         if word['case'] != "success":
             continue
-        s = format_time(word['start'], -100)
-        e = format_time(word['end'], 100)
+        s = format_time(word['start'], -add_time)
+        e = format_time(word['end'], add_time)
         f.write(f'{i}\n')
         f.write(f"{s} --> {e}\n")
         f.write(f"{word['word']}\n\n")
 
-        # print(i)
-        # print()
-        # print(word['word'])
-        # print('\n')
         i+=1
     
     f.close()
